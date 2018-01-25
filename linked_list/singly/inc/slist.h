@@ -34,6 +34,11 @@ bool slist_insert_node_front (SLIST_NODE_H *handle, PSLIST_CUSTOM_DATA data);
 bool slist_insert_node_tail (SLIST_NODE_H *handle, PSLIST_CUSTOM_DATA data);
 bool slist_insert_node_index (SLIST_NODE_H *handle, PSLIST_CUSTOM_DATA data, int idx);
 
+/* slist remove function */
+bool slist_remove_node_front (SLIST_NODE_H *handle);
+bool slist_remove_node_tail (SLIST_NODE_H *handle);
+bool slist_remove_node_index (SLIST_NODE_H *handle, int idx);
+
 /* slist debug method */
 void slist_print (SLIST_NODE_H *handle);
 

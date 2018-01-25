@@ -65,6 +65,7 @@ bool slist_destroy (SLIST_NODE_H *handle)
 	return true;
 }
 
+/* insert node API */
 bool slist_insert_node_front (SLIST_NODE_H *handle, PSLIST_CUSTOM_DATA data)
 {
 	SLIST_DBG("BEGIN\n");
@@ -205,6 +206,91 @@ bool slist_insert_node_index (SLIST_NODE_H *handle, PSLIST_CUSTOM_DATA data, int
 	return true;
 }
 
+/* remove node API */
+bool slist_remove_node_front (SLIST_NODE_H *handle)
+{
+	SLIST_DBG("BEGIN\n");
+	
+	struct slist_node *tmp;
+	
+	/* less than one node in the list */
+	if (handle->count <= 0)
+	{
+		SLIST_DBG("Condition 1, do nothing...\n");
+		return false;
+	}
+
+	if (handle->count == 1 && handle->head->next != NULL)
+	{
+		SLIST_DBG("Condition 2\n");
+		tmp = handle->head->next;
+		handle->head->next = NULL;
+		handle->current = handle->head;
+	}
+	else
+	{
+		SLIST_DBG("Condition 3\n");
+		tmp = handle->head->next;
+		handle->head->next = handle->current = tmp->next;
+	}
+
+	free(tmp);
+	
+	/* decrease the number of node */
+	handle->count--;
+	
+	SLIST_DBG("END\n");
+	return true;
+}
+
+bool slist_remove_node_tail (SLIST_NODE_H *handle)
+{
+	SLIST_DBG("BEGIN\n");
+
+	struct slist_node *tmp;
+	
+	/* less than one node in the list */
+	if (handle->count <= 0)
+	{
+		SLIST_DBG("Condition 1, do nothing...\n");
+		return false;
+	}
+	
+	if (handle->count == 1 && handle->head->next != NULL)
+	{	
+		SLIST_DBG("Condition 2\n");
+		tmp = handle->head->next;
+		handle->head->next = NULL;
+		handle->current = handle->head;
+	}
+	else
+	{
+		/* find the last node in current list */
+		struct slist_node *prev;
+		struct slist_node *tail = handle->head->next;
+		while (tail->next != NULL)
+		{
+			prev = tail;
+			tail = tail->next;
+		}
+
+		prev->next = NULL;
+		handle->current = prev;
+		free(tail);
+	}
+
+	/* decrease the number of node */
+	handle->count--;
+	
+	SLIST_DBG("END\n");
+	return true;
+}
+
+bool slist_remove_node_index (SLIST_NODE_H *handle, int idx)
+{
+	return true;
+}
+
 void slist_print (SLIST_NODE_H *handle)
 {
 	SLIST_DBG("BEGIN\n");
@@ -219,12 +305,19 @@ void slist_print (SLIST_NODE_H *handle)
 		return;
 	}
 
-	tmp = handle->head->next;
-	do
+	if (handle->count > 0)
 	{
-		SLIST_PRT_DBG("[%d] Name: %s,\tAge: %d\n", cnt++, tmp->custom_data.name, tmp->custom_data.age);
-		tmp = tmp->next;
-	} while (tmp != NULL);
+		tmp = handle->head->next;
+		do
+		{
+			SLIST_PRT_DBG("[%d] Name: %s,\tAge: %d\n", cnt++, tmp->custom_data.name, tmp->custom_data.age);
+			tmp = tmp->next;
+		} while (tmp != NULL);
+	}
+	else
+	{
+		SLIST_PRT_DBG("list is empty\n");
+	}
 
 	SLIST_PRT_DBG("----------------------------------\n");	
 	SLIST_DBG("END\n");
