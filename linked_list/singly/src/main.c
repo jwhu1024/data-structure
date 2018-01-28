@@ -140,7 +140,7 @@ int main (int argc, char* argv[])
 		return -1;
 	}
 
-#if 1 // insert test area
+#if 1	// insert test area
 	/* insert front */
 	test_case_insert_front_1(&my_h);
 
@@ -151,7 +151,7 @@ int main (int argc, char* argv[])
 	test_case_insert_index_1(&my_h);
 #endif
 
-#if 1 // remove test area
+#if 1	// remove test area
 	/* remove front */
 	test_case_remove_front_1(&my_h);
 
@@ -162,9 +162,13 @@ int main (int argc, char* argv[])
 	test_case_remove_index_1(&my_h);
 #endif
 
-#if 1 // get slist length test
+#if 1	// get slist length test
 	/* get slist length */
 	MAIN_DBG("slist length : %d\n", slist_length(&my_h));
+#endif
+
+#if 1	// slist search test	
+	MAIN_DBG("Eagle is %s the list\n", (slist_search_node(&my_h, "Eagle") == true) ? "in" : "not in");
 #endif
 
 	if (false == slist_destroy(&my_h))

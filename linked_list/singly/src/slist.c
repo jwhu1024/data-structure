@@ -365,6 +365,45 @@ void slist_print (SLIST_NODE_H *handle)
 	return;
 }
 
+/* search in slist
+*  Return: false if not in list
+*		   true if in list
+*/
+bool slist_search_node (SLIST_NODE_H *handle, char *name)
+{
+	SLIST_DBG("BEGIN\n");
+	
+	if (strlen(name) <= 0)
+	{
+		SLIST_PRT_ERR("Length of the string is abnormal\n");
+		return false;
+	}
+
+	if (handle->head == NULL || handle->count <= 0)
+	{
+		SLIST_PRT_ERR("List has some problem\n");
+		return false;
+	}
+	
+	handle->current = handle->head->next;
+    while (handle->current != NULL)
+    {
+        if (strncmp(handle->current->custom_data.name,
+					name,
+					strlen(name)) == 0)
+        {
+        	SLIST_DBG("Name: %s, Age: %d\n",
+							handle->current->custom_data.name,
+							handle->current->custom_data.age);
+			return true;
+		}
+		handle->current = handle->current->next;
+    }
+
+	SLIST_DBG("END\n");
+	return false;
+}
+
 /* get slist length */
 int slist_length (SLIST_NODE_H *handle)
 {
