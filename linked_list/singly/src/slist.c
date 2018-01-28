@@ -10,6 +10,9 @@
 #define SLIST_PRT_DBG(message, ...)	\
 			MSG("%s" message "%s", CYAN, ##__VA_ARGS__, RESET)
 
+#define SLIST_PRT_ERR(message, ...)	\
+			MSG("%s" message "%s", RED, ##__VA_ARGS__, RESET)
+
 static bool slist_check_valid_range(SLIST_NODE_H *handle, int idx);
 
 /* list node definition */
@@ -28,7 +31,7 @@ bool slist_init (SLIST_NODE_H *handle)
 	handle->head = (struct slist_node *) malloc (sizeof(struct slist_node));
 	if (handle->head == NULL)
 	{
-		SLIST_DBG("Please checking your memory is enough\n");
+		SLIST_PRT_ERR("Please checking your memory is enough\n");
 		return false;
 	}
 
@@ -59,6 +62,7 @@ bool slist_destroy (SLIST_NODE_H *handle)
 		tmp = handle->head;
 		handle->head = handle->head->next;
 		free(tmp);
+		tmp = NULL;
 	}
 	
 	handle->head = handle->current = NULL;
@@ -77,7 +81,7 @@ bool slist_insert_node_front (SLIST_NODE_H *handle, PSLIST_CUSTOM_DATA data)
 	tmp = (struct slist_node *) malloc (sizeof(struct slist_node));
 	if (tmp == NULL)
 	{
-		SLIST_DBG("Please checking your memory is enough\n");
+		SLIST_PRT_ERR("Please checking your memory is enough\n");
 		return false;
 	}
 	
@@ -106,20 +110,17 @@ bool slist_insert_node_tail (SLIST_NODE_H *handle, PSLIST_CUSTOM_DATA data)
 	tmp = (struct slist_node *) malloc (sizeof(struct slist_node));
 	if (tmp == NULL)
 	{
-		SLIST_DBG("Please checking your memory is enough\n");
+		SLIST_PRT_ERR("Please checking your memory is enough\n");
 		return false;
 	}
 	
 	/* this node is first node */
 	if (handle->current == handle->head)
 	{
-		SLIST_DBG("Condition 1\n");
 		handle->head->next = tmp;
 	}
 	else
-	{	
-		SLIST_DBG("Condition 2\n");
-
+	{
 		/* find the last node in current list */
 		struct slist_node *tail = handle->head->next;
 		while (tail->next != NULL)
@@ -150,7 +151,7 @@ bool slist_insert_node_index (SLIST_NODE_H *handle, PSLIST_CUSTOM_DATA data, int
 	/* check valid range of the index */
 	if (slist_check_valid_range(handle, idx) == true)
 	{
-		SLIST_DBG("Please checking your index not out of the range\n");
+		SLIST_PRT_ERR("Please checking your index not out of the range\n");
 		return false;
 	}
 
@@ -172,7 +173,7 @@ bool slist_insert_node_index (SLIST_NODE_H *handle, PSLIST_CUSTOM_DATA data, int
 		tmp = (struct slist_node *) malloc (sizeof(struct slist_node));
 		if (tmp == NULL)
 		{
-			SLIST_DBG("Please checking your memory is enough\n");
+			SLIST_PRT_ERR("Please checking your memory is enough\n");
 			return false;
 		}
 
@@ -208,25 +209,23 @@ bool slist_remove_node_front (SLIST_NODE_H *handle)
 	/* less than one node in the list */
 	if (handle->count <= 0)
 	{
-		SLIST_DBG("Condition 1, do nothing...\n");
 		return false;
 	}
 
 	if (handle->count == 1 && handle->head->next != NULL)
 	{
-		SLIST_DBG("Condition 2\n");
 		tmp = handle->head->next;
 		handle->head->next = NULL;
 		handle->current = handle->head;
 	}
 	else
 	{
-		SLIST_DBG("Condition 3\n");
 		tmp = handle->head->next;
 		handle->head->next = handle->current = tmp->next;
 	}
 
 	free(tmp);
+	tmp = NULL;
 	
 	/* decrease the number of node */
 	handle->count--;
@@ -244,13 +243,11 @@ bool slist_remove_node_tail (SLIST_NODE_H *handle)
 	/* less than one node in the list */
 	if (handle->count <= 0)
 	{
-		SLIST_DBG("Condition 1, do nothing...\n");
 		return false;
 	}
 	
 	if (handle->count == 1 && handle->head->next != NULL)
-	{	
-		SLIST_DBG("Condition 2\n");
+	{
 		tmp = handle->head->next;
 		handle->head->next = NULL;
 		handle->current = handle->head;
@@ -269,6 +266,7 @@ bool slist_remove_node_tail (SLIST_NODE_H *handle)
 		prev->next = NULL;
 		handle->current = prev;
 		free(tail);
+		tail = NULL;
 	}
 
 	/* decrease the number of node */
@@ -285,12 +283,10 @@ bool slist_remove_node_index (SLIST_NODE_H *handle, int idx)
 	/* check valid range of the index */
 	if (slist_check_valid_range(handle, idx) == true)
 	{
-		SLIST_DBG("Please checking your index not out of the range\n");
+		SLIST_PRT_ERR("Please checking your index not out of the range\n");
 		return false;
 	}
-	SLIST_DBG("!!!!  idx:%d, handle->count:%d\n", idx, handle->count);
 
-#if 1
 	if (idx == 1)									/* remove front */
 	{
 		slist_remove_node_front(handle);
@@ -316,13 +312,13 @@ bool slist_remove_node_index (SLIST_NODE_H *handle, int idx)
 		prev->next = cur->next;
 		
 		free(cur);
+		cur = NULL;
 		
 		/* increase the number of node */
 		handle->count--;
 	}
 	
 	SLIST_DBG("END\n");
-#endif
 	return true;
 }
 

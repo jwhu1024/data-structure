@@ -138,7 +138,7 @@ int main (int argc, char* argv[])
 		return -1;
 	}
 
-#if 0 // insert test area
+#if 1 // insert test area
 	/* insert front */
 	test_case_insert_front_1(&my_h);
 
@@ -149,7 +149,7 @@ int main (int argc, char* argv[])
 	test_case_insert_index_1(&my_h);
 #endif
 
-#if 0 // remove test area
+#if 1 // remove test area
 	/* remove front */
 	test_case_remove_front_1(&my_h);
 
