@@ -9,13 +9,13 @@ compiler: gcc
 #        - sudo apt-get install alsa-utils
 
 before_script:
-        - cd linked_list/singly
 	- cmake .
+
 script:
         - make -j 4
 
 after_script:
-        - ./bin/slist_main
+        - ./linked_list/singly/bin/slist_main
 
 notifications:
         email:
