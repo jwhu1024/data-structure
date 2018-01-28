@@ -74,7 +74,7 @@ bool slist_destroy (SLIST_NODE_H *handle)
 	
 	handle->head = handle->current = NULL;
 
-	SLIST_DBG("release %d data in list\n", i_cnt);
+	SLIST_DBG("release %d data in list\n", i_cnt-1);
 	SLIST_DBG("END\n");
 	return true;
 }
