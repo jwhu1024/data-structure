@@ -10,6 +10,8 @@
 #define SLIST_PRT_DBG(message, ...)	\
 			MSG("%s" message "%s", CYAN, ##__VA_ARGS__, RESET)
 
+static bool slist_check_valid_range(SLIST_NODE_H *handle, int idx);
+
 /* list node definition */
 struct slist_node
 {
@@ -80,17 +82,7 @@ bool slist_insert_node_front (SLIST_NODE_H *handle, PSLIST_CUSTOM_DATA data)
 	}
 	
 	/* this node is first node */
-	if (handle->current == handle->head)
-	{
-		SLIST_DBG("Condition 1\n");
-		tmp->next = NULL;
-	}
-	else
-	{	
-		SLIST_DBG("Condition 2\n");
-		tmp->next = handle->head->next;
-	}
-	
+	tmp->next = (handle->current == handle->head) ? NULL : handle->head->next;
 	handle->current = tmp;
 	handle->head->next = tmp;
 
@@ -156,7 +148,7 @@ bool slist_insert_node_index (SLIST_NODE_H *handle, PSLIST_CUSTOM_DATA data, int
 	SLIST_DBG("BEGIN\n");
 
 	/* check valid range of the index */
-	if (idx < SLIST_MINIMAL_NODE || idx > SLIST_MAXIMAL_NODE || idx > handle->count+1)
+	if (slist_check_valid_range(handle, idx) == true)
 	{
 		SLIST_DBG("Please checking your index not out of the range\n");
 		return false;
@@ -288,6 +280,49 @@ bool slist_remove_node_tail (SLIST_NODE_H *handle)
 
 bool slist_remove_node_index (SLIST_NODE_H *handle, int idx)
 {
+	SLIST_DBG("BEGIN\n");
+
+	/* check valid range of the index */
+	if (slist_check_valid_range(handle, idx) == true)
+	{
+		SLIST_DBG("Please checking your index not out of the range\n");
+		return false;
+	}
+	SLIST_DBG("!!!!  idx:%d, handle->count:%d\n", idx, handle->count);
+
+#if 1
+	if (idx == 1)									/* remove front */
+	{
+		slist_remove_node_front(handle);
+	}
+	else if (idx == handle->count)					/* remove tail */
+	{
+		slist_remove_node_tail(handle);
+	}
+	else											/* remove middle */
+	{
+		unsigned int l_idx = 1;
+		struct slist_node *cur;
+		struct slist_node *prev = handle->head->next;
+
+		/* find the node by index */
+		while (prev != NULL && idx-1 != l_idx)
+		{
+			prev = prev->next;
+			l_idx++;
+		}
+		
+		cur = prev->next;
+		prev->next = cur->next;
+		
+		free(cur);
+		
+		/* increase the number of node */
+		handle->count--;
+	}
+	
+	SLIST_DBG("END\n");
+#endif
 	return true;
 }
 
@@ -324,3 +359,10 @@ void slist_print (SLIST_NODE_H *handle)
 	return;
 }
 
+static bool slist_check_valid_range(SLIST_NODE_H *handle, int idx)
+{
+	return (idx < SLIST_MINIMAL_NODE	||
+			idx > SLIST_MAXIMAL_NODE	||
+			idx > handle->count+1) 
+			? true : false;
+}
