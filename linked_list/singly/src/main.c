@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #include "debug.h"
 #include "slist.h"
 
@@ -12,13 +13,13 @@ void test_case_insert_front_1(SLIST_NODE_H *handle)
 	SLIST_CUSTOM_DATA my_data;
 	PSLIST_CUSTOM_DATA pdata = &my_data;
 
-	pdata->age = 11;
-	strcpy(pdata->name, "Terry");
+	pdata->age = (rand() % 100) + 1;
+	strcpy(pdata->name, "Aaron");
 	slist_insert_node_front (handle, pdata);
 	slist_print(handle);
 
-	pdata->age = 13;
-	strcpy(pdata->name, "John");
+	pdata->age = (rand() % 100) + 1;
+	strcpy(pdata->name, "Eagle");
 	slist_insert_node_front (handle, pdata);
 	slist_print(handle);
 }
@@ -28,13 +29,13 @@ void test_case_insert_tail_1(SLIST_NODE_H *handle)
 	SLIST_CUSTOM_DATA my_data;
 	PSLIST_CUSTOM_DATA pdata = &my_data;
 
-	pdata->age = 18;
-	strcpy(pdata->name, "Mary");
+	pdata->age = (rand() % 100) + 1;
+	strcpy(pdata->name, "Alastair");
 	slist_insert_node_tail (handle, pdata);
 	slist_print(handle);
 
-	pdata->age = 24;
-	strcpy(pdata->name, "Lester");
+	pdata->age = (rand() % 100) + 1;
+	strcpy(pdata->name, "Badger");
 	slist_insert_node_tail (handle, pdata);
 	slist_print(handle);
 }
@@ -44,30 +45,29 @@ void test_case_insert_index_1(SLIST_NODE_H *handle)
 	SLIST_CUSTOM_DATA my_data;
 	PSLIST_CUSTOM_DATA pdata = &my_data;
 
-	pdata->age = 33;
-	strcpy(pdata->name, "Casar");
+	pdata->age = (rand() % 100) + 1;
+	strcpy(pdata->name, "Carver");
 	slist_insert_node_index (handle, pdata, 2);
 	slist_print(handle);
 
-	pdata->age = 22;
-	strcpy(pdata->name, "Shawn");
+	pdata->age = (rand() % 100) + 1;
+	strcpy(pdata->name, "Casey");
 	slist_insert_node_index (handle, pdata, 4);
 	slist_print(handle);
 }
-
 
 void test_case_remove_front_1(SLIST_NODE_H *handle)
 {
 	SLIST_CUSTOM_DATA my_data;
 	PSLIST_CUSTOM_DATA pdata = &my_data;
 
-	pdata->age = 11;
-	strcpy(pdata->name, "Terry");
+	pdata->age = (rand() % 100) + 1;
+	strcpy(pdata->name, "Rocky");
 	slist_insert_node_front (handle, pdata);
 	slist_print(handle);
 
-	pdata->age = 15;
-	strcpy(pdata->name, "Mary");
+	pdata->age = (rand() % 100) + 1;
+	strcpy(pdata->name, "Farley");
 	slist_insert_node_front (handle, pdata);
 	slist_print(handle);
 
@@ -80,18 +80,18 @@ void test_case_remove_tail_1(SLIST_NODE_H *handle)
 	SLIST_CUSTOM_DATA my_data;
 	PSLIST_CUSTOM_DATA pdata = &my_data;
 
-	pdata->age = 18;
-	strcpy(pdata->name, "Mary");
+	pdata->age = (rand() % 100) + 1;
+	strcpy(pdata->name, "Donald");
 	slist_insert_node_front (handle, pdata);
 	slist_print(handle);
 	
-	pdata->age = 14;
-	strcpy(pdata->name, "Cathy");
+	pdata->age = (rand() % 100) + 1;
+	strcpy(pdata->name, "Derek");
 	slist_insert_node_tail (handle, pdata);
 	slist_print(handle);
 
-	pdata->age = 54;
-	strcpy(pdata->name, "Brian");
+	pdata->age = (rand() % 100) + 1;
+	strcpy(pdata->name, "Egerton");
 	slist_insert_node_tail (handle, pdata);
 	slist_print(handle);
 	
@@ -104,23 +104,23 @@ void test_case_remove_index_1(SLIST_NODE_H *handle)
 	SLIST_CUSTOM_DATA my_data;
 	PSLIST_CUSTOM_DATA pdata = &my_data;
 
-	pdata->age = 18;
-	strcpy(pdata->name, "Mary");
+	pdata->age = (rand() % 100) + 1;
+	strcpy(pdata->name, "Freeman");
 	slist_insert_node_tail (handle, pdata);
 	slist_print(handle);
 	
-	pdata->age = 14;
-	strcpy(pdata->name, "Cathy");
+	pdata->age = (rand() % 100) + 1;
+	strcpy(pdata->name, "Kelvin");
 	slist_insert_node_tail (handle, pdata);
 	slist_print(handle);
 
-	pdata->age = 54;
-	strcpy(pdata->name, "Brian");
+	pdata->age = (rand() % 100) + 1;
+	strcpy(pdata->name, "Leonard");
 	slist_insert_node_tail (handle, pdata);
 	slist_print(handle);
 	
-	pdata->age = 32;
-	strcpy(pdata->name, "Fred");
+	pdata->age = (rand() % 100) + 1;
+	strcpy(pdata->name, "Lucas");
 	slist_insert_node_tail (handle, pdata);
 	slist_print(handle);
 	
@@ -132,6 +132,8 @@ int main (int argc, char* argv[])
 {
 	MAIN_DBG("BEGIN\n");
 	SLIST_NODE_H my_h;
+
+	srand(time(NULL));
 
 	if (false == slist_init(&my_h))
 	{
@@ -158,6 +160,11 @@ int main (int argc, char* argv[])
 
 	/* remove by index */
 	test_case_remove_index_1(&my_h);
+#endif
+
+#if 1 // get slist length test
+	/* get slist length */
+	MAIN_DBG("slist length : %d\n", slist_length(&my_h));
 #endif
 
 	if (false == slist_destroy(&my_h))

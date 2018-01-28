@@ -39,6 +39,9 @@ bool slist_remove_node_front (SLIST_NODE_H *handle);
 bool slist_remove_node_tail (SLIST_NODE_H *handle);
 bool slist_remove_node_index (SLIST_NODE_H *handle, int idx);
 
+/* get slist length */
+int slist_length (SLIST_NODE_H *handle);
+
 /* slist debug method */
 void slist_print (SLIST_NODE_H *handle);
 

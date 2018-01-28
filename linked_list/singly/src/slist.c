@@ -5,7 +5,7 @@
 #include "slist.h"
 
 #define SLIST_DBG(message, ...)	\
- 		MSG("%s" message "%s", YELLOW, ##__VA_ARGS__, RESET)
+ 			MSG("%s" message "%s", YELLOW, ##__VA_ARGS__, RESET)
  		
 #define SLIST_PRT_DBG(message, ...)	\
 			MSG("%s" message "%s", CYAN, ##__VA_ARGS__, RESET)
@@ -56,6 +56,10 @@ bool slist_destroy (SLIST_NODE_H *handle)
 {
 	SLIST_DBG("BEGIN\n");
 	struct slist_node *tmp;
+
+#ifdef __DEBUG__
+	int i_cnt = 0;
+#endif
 	
 	while (handle->head != NULL)
 	{
@@ -63,10 +67,14 @@ bool slist_destroy (SLIST_NODE_H *handle)
 		handle->head = handle->head->next;
 		free(tmp);
 		tmp = NULL;
+#ifdef __DEBUG__
+		i_cnt++;
+#endif
 	}
 	
 	handle->head = handle->current = NULL;
-	
+
+	SLIST_DBG("release %d data in list\n", i_cnt);
 	SLIST_DBG("END\n");
 	return true;
 }
@@ -187,6 +195,7 @@ bool slist_insert_node_index (SLIST_NODE_H *handle, PSLIST_CUSTOM_DATA data, int
 		next = cur->next;
 		cur->next = tmp;
 		tmp->next = next;
+		handle->current = tmp;
 		
 		/* copy user data */
 		memcpy(&tmp->custom_data, data, sizeof(SLIST_CUSTOM_DATA));
@@ -310,6 +319,7 @@ bool slist_remove_node_index (SLIST_NODE_H *handle, int idx)
 		
 		cur = prev->next;
 		prev->next = cur->next;
+		handle->current = prev;
 		
 		free(cur);
 		cur = NULL;
@@ -341,7 +351,7 @@ void slist_print (SLIST_NODE_H *handle)
 		tmp = handle->head->next;
 		do
 		{
-			SLIST_PRT_DBG("[%d] Name: %s,\tAge: %d\n", cnt++, tmp->custom_data.name, tmp->custom_data.age);
+			SLIST_PRT_DBG("[%d]\tName: %s,\t\tAge: %d\n", cnt++, tmp->custom_data.name, tmp->custom_data.age);
 			tmp = tmp->next;
 		} while (tmp != NULL);
 	}
@@ -353,6 +363,12 @@ void slist_print (SLIST_NODE_H *handle)
 	SLIST_PRT_DBG("----------------------------------\n");	
 	SLIST_DBG("END\n");
 	return;
+}
+
+/* get slist length */
+int slist_length (SLIST_NODE_H *handle)
+{
+	return handle->count;
 }
 
 static bool slist_check_valid_range(SLIST_NODE_H *handle, int idx)
