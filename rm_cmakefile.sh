@@ -1,17 +1,13 @@
 #/bin/sh
 
 RM="rm -rvf"
+PWD=$(pwd)
 
-if [ -z "$1" ]; then
-	echo "Please input your root path then try again!"
-	exit 1
-fi 
+$RM $PWD/$(find . -name CMakeFiles)
+$RM $PWD/$(find . -name cmake_install.cmake)
+$RM $PWD/$(find . -name Makefile)
 
-$RM $1/$(find . -name CMakeFiles)
-$RM $1/$(find . -name cmake_install.cmake)
-$RM $1/$(find . -name Makefile)
-
-$RM $1/CMakeCache.txt
-$RM $1/CMakeFiles
-$RM $1/cmake_install.cmake
-$RM $1/Makefile
+$RM $PWD/CMakeCache.txt
+$RM $PWD/CMakeFiles
+$RM $PWD/cmake_install.cmake
+$RM $PWD/Makefile
