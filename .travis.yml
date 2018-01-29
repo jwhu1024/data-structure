@@ -4,7 +4,7 @@ language: c
 
 compiler: gcc
 
-#before_install:
+# before_install:
 #        - sudo apt-get -qq update
 #        - sudo apt-get install alsa-utils
 
@@ -23,4 +23,3 @@ notifications:
                           
         on_success: change
         on_failure: always
-
