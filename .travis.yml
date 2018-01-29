@@ -16,6 +16,7 @@ script:
 
 after_script:
         - ./linked_list/singly/bin/slist_main
+        - ./linked_list/circular/bin/clist_main
 
 notifications:
         email:
