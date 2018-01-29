@@ -9,7 +9,7 @@ compiler: gcc
 #        - sudo apt-get install alsa-utils
 
 before_script:
-	- cmake .
+        - cmake .
 
 script:
         - make -j 4
