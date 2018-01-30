@@ -1,4 +1,4 @@
-# data-struture (singly list)
+# data-struture (singly list) [![Build Status](https://travis-ci.org/jwhu1024/data-structure.svg?branch=master)](https://travis-ci.org/jwhu1024/data-structure)
 
 1. cd /data-structure
 2. cmake .
