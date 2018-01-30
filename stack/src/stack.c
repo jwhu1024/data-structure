@@ -99,7 +99,7 @@ void stack_print(STACK_H *h)
 	}	
 	STACK_PRT_DBG("|-----------\n");
 	STACK_DBG("END\n");
-	return true;
+	return;
 }
 
 bool stack_destroy (STACK_H *h)
