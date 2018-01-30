@@ -13,7 +13,6 @@
 #define STACK_PRT_ERR(message, ...)	\
 			MSG("%s" message "%s", LIGHT_RED, ##__VA_ARGS__, RESET)
 
-
 #ifdef __STACK_A__ 
 bool stack_init (STACK_H *h, int capacity)
 {
@@ -119,5 +118,138 @@ bool stack_destroy (STACK_H *h)
 }
 
 #else /* __STACK_L__ */
+bool stack_init (STACK_NODE_H *h)
+{
+	STACK_DBG("BEGIN\n");
+	
+	/* head pointer initialize */
+	h->top = (struct stack_node *) malloc (sizeof(struct stack_node));
+	if (h->top == NULL)
+	{
+		STACK_PRT_ERR("Please checking your memory is enough\n");
+		return false;
+	}
 
+	/* init data */
+	h->top->data = -1;
+
+	/* init next pointer to NULL */
+	h->top->next = NULL;
+	
+	STACK_DBG("END\n");
+	return true;
+}
+
+bool stack_destroy (STACK_NODE_H *h)
+{
+	STACK_DBG("BEGIN\n");
+
+	int cnt = 0;
+	struct stack_node *tmp;
+
+	while (h->top != NULL)
+	{
+		tmp = h->top;
+		h->top = h->top->next;
+		free(tmp);
+		cnt++;
+	}
+
+	STACK_DBG("Release %d data in stack\n", cnt);
+	STACK_DBG("END\n");
+	return true;
+}
+
+bool stack_push (STACK_NODE_H *h, int x)
+{
+	STACK_DBG("BEGIN\n");
+
+	if (h->top->data == -1)
+	{
+		h->top->data = x;
+		h->top->next = NULL;
+	}
+	else
+	{
+		struct stack_node *tmp;
+		
+		/* allocate memory */
+		tmp = (struct stack_node *) malloc (sizeof(struct stack_node));
+		if (tmp == NULL)
+		{
+			STACK_PRT_ERR("Please checking your memory is enough\n");
+			return false;
+		}
+
+		tmp->next = h->top;
+		tmp->data = x;
+		h->top = tmp;
+	}
+
+	STACK_PRT_DBG("%d pushed to stack\n", h->top->data);
+	STACK_DBG("END\n");
+	return true;
+}
+
+int stack_pop (STACK_NODE_H *h)
+{
+	STACK_DBG("BEGIN\n");
+
+	int data;
+	struct stack_node *tmp;
+
+	if (h->top->data == -1)
+	{
+		STACK_PRT_ERR("Stack have no nodes to pop\n");
+		return false;
+	}
+
+	data = h->top->data;
+	tmp = h->top;
+	h->top = h->top->next;
+
+	/* release the unused memory */
+	if (tmp != NULL)
+		free (tmp);
+
+	STACK_DBG("END\n");
+	return data;
+}
+
+int stack_peek (STACK_NODE_H *h)
+{
+	STACK_DBG("BEGIN\n");
+	return 1;
+}
+
+bool stack_is_empty(STACK_NODE_H *h)
+{
+	if (h->top == NULL)
+	{
+		return true;
+	}
+	return (h->top->data == -1);
+}
+
+void stack_print(STACK_NODE_H *h)
+{
+	STACK_DBG("BEGIN\n");
+
+	int cnt = 1;
+	struct stack_node *tmp = h->top;
+
+	if (tmp == NULL)
+	{
+		return;
+	}
+	
+	while (tmp != NULL)
+	{
+		STACK_PRT_DBG("[%d] -> %d\n", cnt, tmp->data);
+		tmp = tmp->next;
+		cnt++;
+	} 
+	STACK_DBG("END\n");
+	return;
+}
 #endif /* __STACK_A__ */
