@@ -5,6 +5,8 @@
 3. make
 4. ./linked_list/singly/bin/clist_main
 
+![alt tag](https://cdn.programiz.com/sites/tutorial2program/files/linked-list-concept_0.jpg)
+
 ```
 [1517168184][main.c:133:main] BEGIN
 [1517168184][slist.c:28:slist_init] BEGIN
