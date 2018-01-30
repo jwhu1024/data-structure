@@ -1,0 +1,6 @@
+SET(SRC_LIST main.c stack.c)
+ADD_EXECUTABLE(stack_main ${SRC_LIST})
+
+ADD_DEFINITIONS(-D__DEBUG__)
+#ADD_LIBRARY(jsonC SHARED ${SRC_LIST})
+#TARGET_LINK_LIBRARIES(jsonC json-c json)
