@@ -1,9 +1,10 @@
 # data-struture (singly list)
 
-1. cd /data-structure/linked_list/singly
+1. cd /data-structure
 2. cmake .
 3. make
-4. ./bin/slist_main
+4. ./linked_list/singly/bin/clist_main
+
 ```
 [1517168184][main.c:133:main] BEGIN
 [1517168184][slist.c:28:slist_init] BEGIN
