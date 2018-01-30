@@ -4,10 +4,6 @@ language: c
 
 compiler: gcc
 
-# before_install:
-#        - sudo apt-get -qq update
-#        - sudo apt-get install alsa-utils
-
 before_script:
         - cmake .
 
@@ -17,6 +13,7 @@ script:
 after_script:
         - ./linked_list/singly/bin/slist_main
         - ./linked_list/circular/bin/clist_main
+        - ./stack/bin/stack_main
 
 notifications:
         email:
