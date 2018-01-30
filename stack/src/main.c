@@ -75,7 +75,7 @@ int main (int argc, char* argv[])
 		MAIN_DBG("memory destroy has some problems!\n");
 		return -1;
 	}
-#endif __STACK_A__ 
+#endif /* __STACK_A__ */
 
 	MAIN_DBG("END\n");
 	return 0;
