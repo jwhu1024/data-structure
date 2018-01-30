@@ -5,6 +5,8 @@
 3. make
 4. ./linked_list/circular/bin/clist_main
 
+![alt tag](https://cdn.programiz.com/sites/tutorial2program/files/circular-linked-list.jpg)
+
 ```
 [1517250923][main.c:147:main] BEGIN
 [1517250923][clist.c:22:clist_init] BEGIN
