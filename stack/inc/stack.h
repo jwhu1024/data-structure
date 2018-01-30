@@ -24,6 +24,7 @@ bool stack_init 	(STACK_H *h, int capacity);
 bool stack_destroy 	(STACK_H *h);
 bool stack_push		(STACK_H *h, int x);
 int  stack_pop		(STACK_H *h);
+int  stack_peek		(STACK_H *h);
 bool stack_is_empty	(STACK_H *h);
 bool stack_is_full	(STACK_H *h);
 void stack_print	(STACK_H *h);

@@ -65,7 +65,8 @@ int main (int argc, char* argv[])
 	MAIN_PRT_DBG("%d popped from stack\n", stack_pop(&h));
 
 	stack_print(&h);
-	
+	MAIN_PRT_DBG("%d peek from stack\n", stack_peek(&h));
+		
 	MAIN_PRT_DBG("%d popped from stack\n", stack_pop(&h));
 	MAIN_PRT_DBG("%d popped from stack\n", stack_pop(&h));
 	MAIN_PRT_DBG("%d popped from stack\n", stack_pop(&h));

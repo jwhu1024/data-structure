@@ -66,6 +66,18 @@ int stack_pop (STACK_H *h)
 	return h->stack[--h->top];
 }
 
+int stack_peek (STACK_H *h)
+{
+	STACK_DBG("BEGIN\n");
+	if (stack_is_empty(h) == true)
+	{
+		STACK_PRT_ERR("Stack is empty\n");
+		return -1;
+	}
+
+	return h->stack[h->top-1];
+}
+
 bool stack_is_empty(STACK_H *h)
 {
 	return (h->top == STACK_MINIMAL_NODE);
