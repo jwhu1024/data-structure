@@ -8,7 +8,7 @@
 
 #ifdef __STACK_A__ 
 /* caller handle definition */
-typedef struct _SLIST_H_
+typedef struct _STACK_H_
 {
 	/* top of the stack */
 	int top;
@@ -17,7 +17,7 @@ typedef struct _SLIST_H_
 	int cap;
 	
 	/* stack pointer */
-	int *stack; //[STACK_MAXIMAL_NODE];
+	int *stack;
 } STACK_H, *PSTACK_H;
 
 bool stack_init 	(STACK_H *h, int capacity);
