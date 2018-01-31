@@ -5,7 +5,7 @@
 4. ./stack/bin/stack_main
 
 ![alt tag](https://www.tutorialspoint.com/data_structures_algorithms/images/stack_representation.jpg)
-
+![alt_tag](https://github.com/alrightchiu/SecondRound/blob/master/content/Algorithms%20and%20Data%20Structures/BasicDataStructures/Stack/implement/f6.png?raw=true)
 ```
 [1517336268][main.c:16:main] BEGIN
 [1517336268][stack.c:20:stack_init] BEGIN
