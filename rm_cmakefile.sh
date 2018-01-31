@@ -5,6 +5,7 @@ PWD=$(pwd)
 PRJ_SINGLY="singly"
 PRJ_CIRCUL="circular"
 PRJ_STACK="stack"
+PRJ_QUEUE="queue"
 
 $RM $PWD/$(find . -name CMakeFiles)
 $RM $PWD/$(find . -name cmake_install.cmake)
@@ -18,3 +19,4 @@ $RM $PWD/Makefile
 $RM $PWD/linked_list/$PRJ_SINGLY/bin/
 $RM $PWD/linked_list/$PRJ_CIRCUL/bin/
 $RM $PWD/$PRJ_STACK/bin
+$RM $PWD/$PRJ_QUEUE/bin

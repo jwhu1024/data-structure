@@ -1,0 +1,8 @@
+SET(SRC_LIST main.c queue.c)
+ADD_EXECUTABLE(queue_main ${SRC_LIST})
+
+ADD_DEFINITIONS(-D__DEBUG__ -D__QUEUE_A__)
+
+#-D__QUEUE_L__
+#ADD_LIBRARY(jsonC SHARED ${SRC_LIST})
+#TARGET_LINK_LIBRARIES(jsonC json-c json)
