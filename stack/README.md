@@ -4,5 +4,5 @@
 3. make
 4. ./stack//bin/stack_main
 
-![alt tag](https://cdn.programiz.com/sites/tutorial2program/files/circular-linked-list.jpg)
+![alt tag](https://www.tutorialspoint.com/data_structures_algorithms/images/stack_representation.jpg)
 
