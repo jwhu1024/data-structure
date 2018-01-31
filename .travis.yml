@@ -14,6 +14,7 @@ after_script:
         - ./linked_list/singly/bin/slist_main
         - ./linked_list/circular/bin/clist_main
         - ./stack/bin/stack_main
+        - ./queue/bin/queue_main
 
 notifications:
         email:
